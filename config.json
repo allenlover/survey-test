@@ -9,7 +9,7 @@
     "contact_email": "allenmicco111@gmail.com",
     "estimated_minutes": "7-8",
     "protagonist": "小華",
-    "google_sheet_endpoint": "YOUR_APPS_SCRIPT_URL_HERE"
+    "google_sheet_endpoint": "https://script.google.com/macros/s/AKfycbzX7tDdS-F5Ey-NrpWkYXEYFqF037dZHkUuI-JKO4Vo_OpXjdmJr3H_4t1cyJQazjbf/exec"
   },
 
   "quota_per_cell": 40,
