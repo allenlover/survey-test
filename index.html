@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>學術問卷</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Noto Serif TC", "Source Han Serif TC", "Microsoft JhengHei", serif;
+      background: #f0ede8;
+      color: #1a1a1a;
+      line-height: 1.9;
+      font-size: 16px;
+    }
+
+    .container {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    /* ── Progress ── */
+    #progress-wrap {
+      background: #ddd;
+      border-radius: 4px;
+      height: 6px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    #progress-bar {
+      height: 100%;
+      background: #5a7a6a;
+      border-radius: 4px;
+      transition: width 0.4s ease;
+      width: 0%;
+    }
+    #progress-label {
+      font-size: 13px;
+      color: #666;
+      text-align: right;
+      margin-bottom: 6px;
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 28px 32px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    }
+
+    .part-label {
+      font-size: 13px;
+      font-weight: bold;
+      color: #5a7a6a;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 14px;
+      border-bottom: 2px solid #e8e4de;
+      padding-bottom: 10px;
+    }
+
+    .instruction {
+      font-size: 14px;
+      color: #444;
+      margin-bottom: 16px;
+      padding: 10px 14px;
+      background: #f7f5f2;
+      border-left: 3px solid #5a7a6a;
+      border-radius: 4px;
+    }
+
+    /* ── Scenario box ── */
+    .scenario-box {
+      background: #fafaf8;
+      border: 1px solid #e0dbd4;
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin-bottom: 20px;
+      font-size: 15px;
+      line-height: 2;
+      white-space: pre-line;
+    }
+
+    /* ── Likert scale ── */
+    .likert-item {
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f0ede8;
+    }
+    .likert-item:last-child { border-bottom: none; margin-bottom: 0; }
+
+    .likert-question {
+      font-size: 15px;
+      margin-bottom: 10px;
+      line-height: 1.7;
+    }
+    .likert-question .q-num {
+      color: #5a7a6a;
+      font-weight: bold;
+      margin-right: 4px;
+    }
+
+    .likert-options {
+      display: flex;
+      gap: 6px;
+      align-items: stretch;
+    }
+
+    .likert-option {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .likert-option input[type="radio"] { display: none; }
+
+    .likert-option label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .radio-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid #ccc;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    .likert-option input[type="radio"]:checked + label .radio-circle {
+      background: #5a7a6a;
+      border-color: #5a7a6a;
+      color: white;
+    }
+
+    .likert-option label:hover .radio-circle {
+      border-color: #5a7a6a;
+    }
+
+    .radio-label {
+      font-size: 11px;
+      color: #888;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    /* ── Task fields ── */
+    .task-box {
+      background: #f7f5f2;
+      border: 1px solid #e0dbd4;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+    }
+    .task-title {
+      font-size: 14px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+    .task-description {
+      font-size: 14px;
+      margin-bottom: 10px;
+      line-height: 1.7;
+    }
+    .task-note {
+      font-size: 13px;
+      color: #555;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 8px 12px;
+      margin-bottom: 14px;
+      line-height: 1.6;
+    }
+
+    .task-field {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .task-field label {
+      font-size: 14px;
+      min-width: 110px;
+      white-space: nowrap;
+    }
+    .task-field input[type="text"] {
+      flex: 1;
+      border: none;
+      border-bottom: 1px solid #aaa;
+      background: transparent;
+      font-size: 15px;
+      padding: 4px 2px;
+      font-family: inherit;
+      outline: none;
+    }
+    .task-field input[type="text"]:focus {
+      border-bottom-color: #5a7a6a;
+    }
+    .task-field .opt-note {
+      font-size: 12px;
+      color: #999;
+    }
+
+    /* ── Demographics ── */
+    .demo-field {
+      margin-bottom: 20px;
+    }
+    .demo-label {
+      font-size: 15px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .demo-field input[type="number"] {
+      width: 80px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 6px 10px;
+      font-size: 15px;
+      font-family: inherit;
+    }
+    .demo-unit { margin-left: 6px; font-size: 14px; color: #555; }
+
+    .radio-group { display: flex; flex-wrap: wrap; gap: 10px; }
+    .radio-chip input[type="radio"] { display: none; }
+    .radio-chip label {
+      display: inline-block;
+      padding: 6px 16px;
+      border: 1.5px solid #ccc;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.15s;
+    }
+    .radio-chip input[type="radio"]:checked + label {
+      background: #5a7a6a;
+      border-color: #5a7a6a;
+      color: white;
+    }
+
+    /* ── Cover page ── */
+    .cover-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .cover-title {
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+    .cover-meta {
+      font-size: 13px;
+      color: #666;
+    }
+    .cover-body { font-size: 15px; margin-bottom: 16px; line-height: 1.9; }
+    .cover-reminder {
+      background: #f0ede8;
+      border-radius: 6px;
+      padding: 14px 18px;
+      font-size: 14px;
+      margin-top: 16px;
+      line-height: 1.8;
+    }
+
+    /* ── Thank you ── */
+    .thankyou-wrap {
+      text-align: center;
+      padding: 30px 0;
+    }
+    .thankyou-wrap h2 { font-size: 22px; margin-bottom: 12px; border: none; }
+    .thankyou-wrap p { font-size: 15px; color: #555; }
+
+    /* ── Navigation ── */
+    .nav-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      margin-bottom: 40px;
+      gap: 12px;
+    }
+    .btn {
+      padding: 12px 32px;
+      border-radius: 6px;
+      border: none;
+      font-size: 15px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-prev {
+      background: #e8e4de;
+      color: #555;
+    }
+    .btn-prev:hover { background: #d8d4ce; }
+    .btn-next {
+      background: #5a7a6a;
+      color: white;
+      font-weight: bold;
+    }
+    .btn-next:hover { background: #4a6a5a; }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .error-msg {
+      color: #c0392b;
+      font-size: 13px;
+      margin-top: 8px;
+      display: none;
+    }
+
+    /* ── Loading ── */
+    #loading {
+      text-align: center;
+      padding: 60px 20px;
+      font-size: 16px;
+      color: #666;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 500px) {
+      .card { padding: 20px 16px; }
+      .likert-options { gap: 3px; }
+      .radio-circle { width: 28px; height: 28px; font-size: 10px; }
+      .radio-label { font-size: 10px; }
+      .task-field { flex-direction: column; align-items: flex-start; gap: 4px; }
+      .task-field input[type="text"] { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div id="loading">載入中，請稍候...</div>
+  <div id="app" style="display:none">
+    <div id="progress-label"></div>
+    <div id="progress-wrap"><div id="progress-bar"></div></div>
+    <div id="survey-content"></div>
+    <div class="nav-wrap" id="nav-wrap">
+      <button class="btn btn-prev" id="btn-prev" onclick="prevPage()">← 上一頁</button>
+      <span id="error-msg" class="error-msg">請完成所有必填題項再繼續。</span>
+      <button class="btn btn-next" id="btn-next" onclick="nextPage()">下一頁 →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let cfg = null;
+let scenario = {};
+let scenarioCode = '';
+let pages = [];
+let currentPage = 0;
+let responses = {};
+let assignmentId = null;
+
+async function boot() {
+  try {
+    const res = await fetch('config.json');
+    cfg = await res.json();
+    document.title = cfg.study.title || '學術問卷';
+    const ok = await assignScenario();
+    if (!ok) return;
+    buildPages();
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    renderPage();
+  } catch (e) {
+    document.getElementById('loading').textContent = '載入失敗，請重新整理頁面。';
+    console.error(e);
+  }
+}
+
+async function assignScenario() {
+  const endpoint = cfg.study.google_sheet_endpoint;
+  const hasQuota = cfg.quota_per_cell && cfg.quota_per_cell > 0;
+  const hasEndpoint = endpoint && endpoint !== 'YOUR_APPS_SCRIPT_URL_HERE';
+
+  if (hasQuota && hasEndpoint) {
+    try {
+      const res = await fetch(endpoint + '?action=getCondition');
+      const data = await res.json();
+
+      if (data.status === 'full') {
+        document.getElementById('loading').textContent =
+          data.message || '本問卷已達收件上限，感謝您的支持！';
+        return false;
+      }
+
+      if (data.status === 'ok') {
+        assignmentId = data.assignment_id;
+        parseConditionCode(data.condition_code);
+        return true;
+      }
+
+      console.warn('配額分派異常，退回簡單隨機法。原因：', data.message);
+    } catch (err) {
+      console.warn('配額分派請求失敗，退回簡單隨機法。', err);
+    }
+  }
+
+  const codes = [];
+  cfg.factors.forEach(f => {
+    const lvl = f.levels[Math.floor(Math.random() * f.levels.length)];
+    scenario[f.id] = lvl;
+    codes.push(f.id + lvl.id);
+  });
+  scenarioCode = codes.join('+');
+  return true;
+}
+
+function parseConditionCode(code) {
+  scenarioCode = code;
+  const parts = code.split('+');
+  parts.forEach(part => {
+    cfg.factors.forEach(f => {
+      if (part.startsWith(f.id)) {
+        const levelId = part.slice(f.id.length);
+        const level = f.levels.find(l => l.id === levelId);
+        if (level) scenario[f.id] = level;
+      }
+    });
+  });
+}
+
+function buildPages() {
+  pages = [];
+  pages.push({ type: 'cover' });
+
+  const factorMap = {};
+  cfg.factors.forEach(f => factorMap[f.id] = f);
+
+  const scaleMap = {};
+  (cfg.scales || []).forEach(s => scaleMap[s.id] = s);
+  if (cfg.outcome_scale && !cfg.scales) {
+    scaleMap[cfg.outcome_scale.id] = cfg.outcome_scale;
+  }
+
+  let order;
+  if (cfg.survey_order) {
+    order = cfg.survey_order;
+  } else {
+    order = [
+      ...cfg.factors.map(f => f.id),
+      ...(cfg.scales || (cfg.outcome_scale ? [cfg.outcome_scale] : [])).map(s => s.id)
+    ];
+  }
+
+  order.forEach(id => {
+    if (factorMap[id]) {
+      pages.push({ type: 'factor', factor: factorMap[id] });
+    } else if (scaleMap[id]) {
+      pages.push({ type: 'scale', scale: scaleMap[id] });
+    }
+  });
+
+  pages.push({ type: 'demographics' });
+  pages.push({ type: 'thankyou' });
+}
+
+function renderPage() {
+  const p = pages[currentPage];
+  const content = document.getElementById('survey-content');
+
+  document.getElementById('progress-bar').style.width =
+    Math.min(100, Math.round((currentPage / (pages.length - 1)) * 100)) + '%';
+  document.getElementById('progress-label').textContent =
+    p.type === 'thankyou' ? '' : `第 ${currentPage + 1} 頁，共 ${pages.length - 1} 頁`;
+
+  const nav = document.getElementById('nav-wrap');
+  const btnPrev = document.getElementById('btn-prev');
+  const btnNext = document.getElementById('btn-next');
+
+  btnPrev.style.display = (currentPage === 0 || p.type === 'thankyou') ? 'none' : 'inline-block';
+  nav.style.display = p.type === 'thankyou' ? 'none' : 'flex';
+  btnNext.textContent = p.type === 'demographics' ? '送出問卷 ✓' : '下一頁 →';
+
+  hideError();
+
+  switch (p.type) {
+    case 'cover':        content.innerHTML = renderCover(); break;
+    case 'factor':       content.innerHTML = renderFactor(p.factor); break;
+    case 'scale':        content.innerHTML = renderScale(p.scale); break;
+    case 'demographics': content.innerHTML = renderDemographics(); break;
+    case 'thankyou':     content.innerHTML = renderThankyou(); break;
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  restoreResponses(p);
+}
+
+function renderCover() {
+  const s = cfg.study;
+  const c = cfg.cover;
+  return `
+  <div class="card">
+    <div class="cover-header">
+      <div class="cover-title">${s.name}</div>
+      <div class="cover-meta">${s.institution}<br>${s.advisor} 指導 ／ ${s.researcher} 撰</div>
+    </div>
+    <div class="cover-body">${c.body}</div>
+    <div class="cover-body">${c.privacy}</div>
+    <div class="cover-reminder">
+      再次提醒：<br>${c.reminder}
+    </div>
+    <div style="margin-top:20px; font-size:13px; color:#888; text-align:right">
+      聯絡電話：${s.contact_phone}　聯絡信箱：${s.contact_email}
+    </div>
+  </div>`;
+}
+
+function renderFactor(f) {
+  const lvl = scenario[f.id];
+  let html = `<div class="card">
+    <div class="part-label">${f.part_title}</div>
+    <h2>請先閱讀完以下故事情境，再依據其內容回答後續題項。</h2>`;
+
+  if (f.scenario_shared) {
+    html += `<div class="scenario-box">${f.scenario_shared.replace(/\n/g,'<br>')}</div>`;
+  }
+
+  if (f.manipulation_type === 'task_then_scale') {
+    html += `
+    <div class="task-box">
+      <div class="task-title">任　務　敘　述</div>
+      <div class="task-description">${lvl.task_description}</div>
+      <div class="task-note">${f.task_note}</div>
+      ${lvl.task_fields.map((tf, i) => `
+        <div class="task-field">
+          <label for="task_${f.id}_${i}">${tf.label}：</label>
+          <input type="text" id="task_${f.id}_${i}" name="task_${f.id}_${i}"
+            ${tf.required ? '' : 'placeholder="（選填）"'}
+            autocomplete="off">
+          ${tf.note ? `<span class="opt-note">（${tf.note}）</span>` : ''}
+        </div>`).join('')}
+    </div>`;
+  } else {
+    html += `<div class="scenario-box">${lvl.scenario.replace(/\n/g,'<br>')}</div>`;
+  }
+
+  html += `<div class="instruction">根據上述之故事情境，並「假設您是${cfg.study.protagonist}」，填答以下題項。</div>`;
+  html += renderLikertItems(f.check_items, f.check_scale, `mc_${f.id}`);
+  html += `</div>`;
+  return html;
+}
+
+function renderScale(sc) {
+  let html = `<div class="card">
+    <div class="part-label">${sc.part_title}</div>
+    <h2>${sc.header_instruction}</h2>`;
+  if (sc.preamble) {
+    html += `<div class="scenario-box" style="font-size:14px">${sc.preamble.replace(/\n/g,'<br>')}</div>`;
+  }
+  html += `<div class="instruction">${sc.check_instruction}</div>`;
+  html += renderLikertItems(sc.items, sc.scale, sc.id.toLowerCase());
+  html += `</div>`;
+  return html;
+}
+
+function renderLikertItems(items, scale, prefix) {
+  return items.map((item, i) => {
+    const name = `${prefix}_${i + 1}`;
+    const opts = Array.from({ length: scale.points }, (_, k) => {
+      const val = k + 1;
+      const lbl = scale.labels[k] || val;
+      return `
+        <div class="likert-option">
+          <input type="radio" name="${name}" id="${name}_${val}" value="${val}">
+          <label for="${name}_${val}">
+            <div class="radio-circle">${val}</div>
+            <div class="radio-label">${lbl}</div>
+          </label>
+        </div>`;
+    }).join('');
+    return `
+      <div class="likert-item">
+        <div class="likert-question"><span class="q-num">${i + 1}.</span> ${item}</div>
+        <div class="likert-options">${opts}</div>
+      </div>`;
+  }).join('');
+}
+
+function renderDemographics() {
+  const d = cfg.demographics;
+  let html = `<div class="card">
+    <div class="part-label">${d.part_title}</div>
+    <h2>${d.instruction}</h2>`;
+
+  const monthField = d.fields.find(f => f.id === 'work_months');
+
+  d.fields.forEach(f => {
+    if (f.id === 'work_months') return;
+
+    html += `<div class="demo-field">`;
+    if (f.label) html += `<span class="demo-label">${f.label}</span>`;
+
+    if (f.type === 'number') {
+      html += `<input type="number" id="${f.id}" name="${f.id}"
+        min="${f.min || 0}" max="${f.max || 100}"
+        ${f.required ? 'required' : ''}>
+        <span class="demo-unit">${f.unit}</span>`;
+
+      if (f.id === 'work_years' && monthField) {
+        html += `&nbsp;&nbsp;
+          <input type="number" id="${monthField.id}" name="${monthField.id}"
+            min="0" max="11" ${monthField.required ? 'required' : ''}>
+          <span class="demo-unit">${monthField.unit}</span>`;
+      }
+    } else if (f.type === 'radio') {
+      html += `<div class="radio-group">`;
+      f.options.forEach((opt, i) => {
+        const rid = `${f.id}_${i}`;
+        html += `<div class="radio-chip">
+          <input type="radio" name="${f.id}" id="${rid}" value="${opt}" ${f.required ? 'required' : ''}>
+          <label for="${rid}">${opt}</label>
+        </div>`;
+      });
+      html += `</div>`;
+    }
+
+    html += `</div>`;
+  });
+
+  html += `</div>`;
+  return html;
+}
+
+function renderThankyou() {
+  return `<div class="card">
+    <div class="thankyou-wrap">
+      <h2>本問卷至此結束</h2>
+      <p>由衷感謝您撥冗時間參與本次問卷之填答</p>
+      <p style="margin-top:8px">懇請您再次確認是否所有題項皆已填答完畢</p>
+      <div style="margin-top:30px; color:#aaa; font-size:13px">
+        敬祝　平安喜樂，事業順遂！
+      </div>
+    </div>
+  </div>`;
+}
+
+function nextPage() {
+  if (!validatePage()) { showError(); return; }
+  saveResponses();
+  if (pages[currentPage].type === 'demographics') {
+    submitSurvey();
+  } else {
+    currentPage++;
+    renderPage();
+  }
+}
+
+function prevPage() {
+  if (currentPage > 0) {
+    saveResponses();
+    currentPage--;
+    renderPage();
+  }
+}
+
+function validatePage() {
+  const p = pages[currentPage];
+
+  if (p.type === 'cover') return true;
+
+  if (p.type === 'factor') {
+    const f = p.factor;
+    for (let i = 0; i < f.check_items.length; i++) {
+      if (!document.querySelector(`input[name="mc_${f.id}_${i + 1}"]:checked`)) return false;
+    }
+    if (f.manipulation_type === 'task_then_scale') {
+      const lvl = scenario[f.id];
+      for (let i = 0; i < lvl.task_fields.length; i++) {
+        if (lvl.task_fields[i].required) {
+          const inp = document.getElementById(`task_${f.id}_${i}`);
+          if (!inp || !inp.value.trim()) return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  if (p.type === 'scale') {
+    const sc = p.scale;
+    const prefix = sc.id.toLowerCase();
+    for (let i = 0; i < sc.items.length; i++) {
+      if (!document.querySelector(`input[name="${prefix}_${i + 1}"]:checked`)) return false;
+    }
+    return true;
+  }
+
+  if (p.type === 'demographics') {
+    for (const f of cfg.demographics.fields) {
+      if (!f.required) continue;
+      if (f.type === 'number') {
+        const el = document.getElementById(f.id);
+        if (!el || el.value === '') return false;
+      } else if (f.type === 'radio') {
+        if (!document.querySelector(`input[name="${f.id}"]:checked`)) return false;
+      }
+    }
+    return true;
+  }
+
+  return true;
+}
+
+function showError() {
+  const el = document.getElementById('error-msg');
+  el.style.display = 'inline';
+  setTimeout(() => el.style.display = 'none', 3000);
+}
+function hideError() {
+  document.getElementById('error-msg').style.display = 'none';
+}
+
+function saveResponses() {
+  const p = pages[currentPage];
+
+  if (p.type === 'factor') {
+    const f = p.factor;
+    f.check_items.forEach((_, i) => {
+      const name = `mc_${f.id}_${i + 1}`;
+      const checked = document.querySelector(`input[name="${name}"]:checked`);
+      if (checked) responses[name] = checked.value;
+    });
+    if (f.manipulation_type === 'task_then_scale') {
+      const lvl = scenario[f.id];
+      lvl.task_fields.forEach((_, i) => {
+        const el = document.getElementById(`task_${f.id}_${i}`);
+        if (el) responses[`task_${f.id}_${i}`] = el.value;
+      });
+    }
+  }
+
+  if (p.type === 'scale') {
+    const sc = p.scale;
+    const prefix = sc.id.toLowerCase();
+    sc.items.forEach((_, i) => {
+      const checked = document.querySelector(`input[name="${prefix}_${i + 1}"]:checked`);
+      if (checked) responses[`${prefix}_${i + 1}`] = checked.value;
+    });
+  }
+
+  if (p.type === 'demographics') {
+    cfg.demographics.fields.forEach(f => {
+      if (f.type === 'number') {
+        const el = document.getElementById(f.id);
+        if (el) responses[f.id] = el.value;
+      } else if (f.type === 'radio') {
+        const checked = document.querySelector(`input[name="${f.id}"]:checked`);
+        if (checked) responses[f.id] = checked.value;
+      }
+    });
+  }
+}
+
+function restoreResponses(p) {
+  if (!p) return;
+  setTimeout(() => {
+    if (p.type === 'factor') {
+      const f = p.factor;
+      f.check_items.forEach((_, i) => {
+        const name = `mc_${f.id}_${i + 1}`;
+        if (responses[name]) {
+          const el = document.getElementById(`${name}_${responses[name]}`);
+          if (el) el.checked = true;
+        }
+      });
+      if (f.manipulation_type === 'task_then_scale') {
+        const lvl = scenario[f.id];
+        lvl.task_fields.forEach((_, i) => {
+          const el = document.getElementById(`task_${f.id}_${i}`);
+          if (el && responses[`task_${f.id}_${i}`]) el.value = responses[`task_${f.id}_${i}`];
+        });
+      }
+    }
+    if (p.type === 'scale') {
+      const sc = p.scale;
+      const prefix = sc.id.toLowerCase();
+      sc.items.forEach((_, i) => {
+        const key = `${prefix}_${i + 1}`;
+        if (responses[key]) {
+          const el = document.getElementById(`${key}_${responses[key]}`);
+          if (el) el.checked = true;
+        }
+      });
+    }
+    if (p.type === 'demographics') {
+      cfg.demographics.fields.forEach(f => {
+        if (f.type === 'number') {
+          const el = document.getElementById(f.id);
+          if (el && responses[f.id] !== undefined) el.value = responses[f.id];
+        } else if (f.type === 'radio') {
+          const checked = document.querySelector(`input[name="${f.id}"][value="${responses[f.id]}"]`);
+          if (checked) checked.checked = true;
+        }
+      });
+    }
+  }, 50);
+}
+
+async function submitSurvey() {
+  saveResponses();
+
+  const payload = {
+    timestamp: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' }),
+    assignment_id: assignmentId !== null ? assignmentId : '',
+    scenario_code: scenarioCode,
+  };
+
+  cfg.factors.forEach(f => {
+    const lvl = scenario[f.id];
+    payload[`scenario_${f.id}`] = lvl.id;
+    f.check_items.forEach((_, i) => {
+      const key = `mc_${f.id}_${i + 1}`;
+      payload[key] = responses[key] || '';
+    });
+    if (f.manipulation_type === 'task_then_scale') {
+      lvl.task_fields.forEach((tf, i) => {
+        payload[`task_${f.id}_${i + 1}`] = responses[`task_${f.id}_${i}`] || '';
+      });
+    }
+  });
+
+  const allScales = cfg.scales || (cfg.outcome_scale ? [cfg.outcome_scale] : []);
+  allScales.forEach(sc => {
+    const prefix = sc.id.toLowerCase();
+    sc.items.forEach((_, i) => {
+      payload[`${prefix}_${i + 1}`] = responses[`${prefix}_${i + 1}`] || '';
+    });
+  });
+
+  cfg.demographics.fields.forEach(f => {
+    payload[f.id] = responses[f.id] || '';
+  });
+
+  const endpoint = cfg.study.google_sheet_endpoint;
+
+  if (!endpoint || endpoint === 'YOUR_APPS_SCRIPT_URL_HERE') {
+    console.log('📋 [TEST MODE] Payload:', JSON.stringify(payload, null, 2));
+    alert('【測試模式】資料已印出到 console。請在 config.json 設定 google_sheet_endpoint 後再正式使用。');
+    currentPage++;
+    renderPage();
+    return;
+  }
+
+  try {
+    const btn = document.getElementById('btn-next');
+    btn.textContent = '送出中...';
+    btn.disabled = true;
+
+    await fetch(endpoint, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    currentPage++;
+    renderPage();
+  } catch (e) {
+    console.error('送出失敗', e);
+    alert('送出時發生錯誤，請再試一次。如持續出現問題請聯絡研究者。');
+    document.getElementById('btn-next').textContent = '送出問卷 ✓';
+    document.getElementById('btn-next').disabled = false;
+  }
+}
+
+boot();
+</script>
+</body>
+</html>

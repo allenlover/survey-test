@@ -1,0 +1,231 @@
+{
+  "study": {
+    "title": "學術問卷",
+    "name": "看不見的成功枷鎖：探討冒牌者現象、提取容易度、工作自主性影響和諧式熱情之研究",
+    "researcher": "張凱傑",
+    "advisor": "王議賢 博士",
+    "institution": "國立彰化師範大學人力資源管理研究所",
+    "contact_phone": "0988-973-639",
+    "contact_email": "allenmicco111@gmail.com",
+    "estimated_minutes": "7-8",
+    "protagonist": "小華",
+    "google_sheet_endpoint": "YOUR_APPS_SCRIPT_URL_HERE"
+  },
+
+  "quota_per_cell": 40,
+
+  "cover": {
+    "target_description": "工作內容涉及產品或服務之銷售，且固定週期接受績效評比排行之人員",
+    "body": "非常感謝您在百忙之中撥冗填寫本問卷。本問卷主要目的在於瞭解您對於自主職場中冒牌者現象影響工作熱情形成之想法。調查對象為<strong>工作內容涉及產品或服務之銷售，且固定週期接受績效評比排行之人員</strong>，填答時間約需 7-8 分鐘，選擇題皆為單選，請您先閱讀問卷中所敘述之故事情境，再依據指示進行填答，每一題項均無對、錯之分，請依照您實際想法與感受填答即可。",
+    "privacy": "本問卷採自願參與且「匿名」之方式進行填答，研究資料處理過程將嚴格保護其個人隱私，且<strong>僅限用於學術探討</strong>，敬請安心填答。請您自由決定是否填答。亦可中途不填答，無需感到壓力。惟一旦送交，本問卷無配名且無編碼，研究者將無法辨識送出的問卷，恕無法刪除您填寫的內容，再次感謝您撥冗時間填答。",
+    "reminder": "請您將自己假設為故事情境中之主角<u><strong>小華</strong></u>，先閱讀完故事後，再行填答問卷。"
+  },
+
+  "factors": [
+    {
+      "id": "JA",
+      "name": "工作自主性",
+      "part_title": "第一部分",
+      "read_instruction": "請先閱讀完以下故事情境，再依據其內容回答後續題項。",
+      "check_instruction": "根據上述之故事情境，並「假設您是小華」，填答以下三道題項。",
+      "manipulation_type": "scale",
+      "check_scale": {
+        "points": 6,
+        "labels": ["非常不同意", "不同意", "有點不同意", "有點同意", "同意", "非常同意"]
+      },
+      "check_items": [
+        "這份工作允許我，<strong>自己去決定工作的順序</strong>嗎？",
+        "這份工作允許我，<strong>自己去選擇銷售的方法</strong>嗎？",
+        "這份工作允許我，<strong>擁有主動權去對工作內容、工作範圍、工作方法下決策</strong>嗎？"
+      ],
+      "levels": [
+        {
+          "id": "H",
+          "label": "高工作自主性",
+          "scenario": "小華是一名銷售業務員，在公司中每天的<u><strong>工作時間</strong></u>都可以由小華<strong>自己安排</strong>，他可以選擇早上專注於文書作業下午出來拜訪客戶。\n\n<u><strong>工作地點</strong></u>也相當的<strong>彈性</strong>，小華可以選擇在辦公室、咖啡廳、客戶的公司，或者甚至在家中工作。\n\n而在<u><strong>銷售方法</strong></u>上，<strong>公司充分尊重</strong>小華的專業判斷，小華能根據不同客戶的需求，<u><strong>自由決定</strong></u>最適合的銷售<u><strong>策略以及溝通方式</strong></u>。\n\n<u><strong>工作的順序也完全由小華來決定</strong></u>，他可以<u><strong>依據個人以往的經驗來安排</strong></u>最有效率的拜訪路線或者聯繫順序。\n\n在每週的例行<strong>會議</strong>時，<strong>主管</strong>主要關注小華的業績結果，而<strong><u>不會過問</u></strong>小華的任何工<u><strong>作細節。</strong></u>"
+        },
+        {
+          "id": "L",
+          "label": "低工作自主性",
+          "scenario": "小華是一名銷售業務員，在公司中每天<u><strong>必須準時</strong></u>早上九點<u><strong>打卡上班</strong></u>，下午六點<u><strong>打卡下班後才能離開</strong></u>公司，中間的<u><strong>行程都需要依照主管規劃</strong></u>的時間表來執行。\n\n<u><strong>工作地點被明確要求</strong></u>，上午則必須待在辦公室裡處理文書作業，下午則必須依照預定的行程表拜訪客戶。\n\n在<u><strong>銷售方法</strong></u>上公司有一套標準化的流程以及話術，小華<u><strong>必須嚴格遵守</strong></u>這些既定的銷售方法，<u><strong>不能隨意進行決策</strong></u>。\n\n而<u><strong>工作順序也由主管來統一安排</strong></u>，每天早上會收到詳細的拜訪名單和路線圖。\n\n在每週的例行會議時，除了檢視績效，<strong>主管會仔細審查</strong>小華的<strong>工作中的每一個細節</strong>，以<strong>確保</strong>小華完全<strong>依照公司規定</strong>來執行。"
+        }
+      ]
+    },
+
+    {
+      "id": "IP",
+      "name": "冒牌者現象",
+      "part_title": "第二部分",
+      "read_instruction": "請先閱讀完以下故事情境，再依據其內容回答後續題項。",
+      "check_instruction": "根據上述之故事情境，並「假設您是小華」，填答以下三道題項。",
+      "manipulation_type": "scale",
+      "check_scale": {
+        "points": 6,
+        "labels": ["非常不同意", "不同意", "有點不同意", "有點同意", "同意", "非常同意"]
+      },
+      "check_items": [
+        "我始終認為，自己的績效來源<u><strong>只是因為某種運氣</strong></u>，而不是自己的能力嗎？",
+        "我在<u><strong>面對新的工作任務</strong></u>時，<strong>總是會擔心遭遇失敗</strong>嗎？",
+        "每當獲得他人讚譽時，我會<u><strong>傾向先否定或貶低自己</strong></u>的成果跟價值嗎？"
+      ],
+      "levels": [
+        {
+          "id": "H",
+          "label": "高冒牌者現象",
+          "scenario": "在工作表現中小華擁有優異的績效，儘管他的業績總是名列前茅，但他<u><strong>始終認為這只是幸運</strong></u>。\n\n每當同事稱讚小華的銷售能力時，他總是說：「<strong>我真的沒做什麼特別的</strong>，就是<u><strong>運氣好，剛好遇到客戶有需求而已</strong></u>。」\n\n在部門的月會上，主管表揚小華的優異表現並要求他分享成功經驗時，他心想：「<u><strong>相比其他真的成績亮眼的同事們</strong></u>，我真的就<u><strong>沒有什麼厲害的</strong></u>銷售方法，<u><strong>都只是碰巧</strong></u>成交的，要是上台分享了，<strong>大家就會發現其實<u>我根本沒有什麼真本事</u></strong>。」\n\n為了<u><strong>避免被揭穿</strong></u>自己能力不足，小華<strong>更加投入</strong>銷售工作中，希望能藉由更多努力來彌補自己的不足。\n\n可每當接到新的銷售機會時，他<u><strong>總是擔心</strong></u>自己<u>下一次就會失敗</u>，因為這<strong>可能是最後一次好運</strong>了。"
+        },
+        {
+          "id": "L",
+          "label": "低冒牌者現象",
+          "scenario": "在工作表現中小華擁有優異的績效，他的業績總是名列前茅。\n\n他<u><strong>始終認為</strong></u>這是<u><strong>自己努力不懈得來的成果</strong></u>，而<strong>不是運氣</strong>的關係。\n\n每當同事稱讚他的銷售能力時，他會說：「<u><strong>我的能力是來自長期的努力積累</strong></u>，因為我確實花了不少心思在工作上。」\n\n在部門的月會上，主管表揚小華的優異表現並要求他分享成功經驗時，他心想：「<u><strong>我的銷售方法非常有用</strong></u>，我確實因此成交了不少筆生意，<u><strong>一定也能提供給同仁作為銷售方法來學習</strong></u>。」\n\n每當接到新的業務目標時，<u><strong>小華總是信心十足，不會擔心</strong></u>，他會<u><strong>依據過往經驗</strong></u>靈活調整並規劃銷售策略，並且<u><strong>相信自己會成功</strong></u>。"
+        }
+      ]
+    },
+
+    {
+      "id": "ER",
+      "name": "提取容易度",
+      "part_title": "第三部分",
+      "read_instruction": "請先閱讀完以下故事情境，再依據其內容回答後續題項。",
+      "scenario_shared": "在某一次部門業績檢討的月會上，主管對小華說：「你這一季的成交率很高，能不能上台跟大家分享你的成功案例還有竅門？」\n\n小華應主管邀請站起來分享：「首先<u><strong>聆聽客戶的需求</strong></u>，並且與客戶保持<u><strong>良好的長期關係</strong></u>，同時對自家<u><strong>產品要非常了解</strong></u>，最後可以分享<u><strong>成功案例來提升說服力</strong></u>。」\n\n「以上就是我的分享，謝謝大家。」",
+      "task_preface": "請閱讀完任務敘述後，再開始進行任務。",
+      "task_note": "注意：當您在填寫過程中「<strong>已無法再順暢流利地</strong>」寫出答案時，則<strong>可以放棄</strong>作答本題，請在剩餘未完成的題項填寫「<strong>無</strong>」，然後直接進行下一道題目。",
+      "manipulation_type": "task_then_scale",
+      "check_instruction": "現在請根據您剛才列舉銷售方法的經驗，填答以下一道題項。",
+      "check_scale": {
+        "points": 6,
+        "labels": ["非常容易", "容易", "有點容易", "有點困難", "困難", "非常困難"]
+      },
+      "check_items": [
+        "您覺得要「<u><strong>完整地列舉出任務所要求的方法數量</strong></u>」其難易程度是？"
+      ],
+      "levels": [
+        {
+          "id": "E",
+          "label": "提取容易",
+          "task_description": "現在請假設您是小華，被主管要求上台進行分享，請於下方空白處填寫「<strong>2-3</strong>」個有效銷售方法或技巧。（只需簡單寫出方法或技巧名稱，<u><strong>可以和故事中的方法重複</strong></u>。）",
+          "task_fields": [
+            { "label": "第一個銷售方法", "required": true },
+            { "label": "第二個銷售方法", "required": true },
+            { "label": "第三個銷售方法", "required": false, "note": "選填" }
+          ]
+        },
+        {
+          "id": "D",
+          "label": "提取困難",
+          "task_description": "現在請假設您是小華，被主管要求上台進行分享，請於下方空白處填寫「<strong>10-12</strong>」個有效銷售方法或技巧。（只需簡單寫出方法或技巧名稱，<u><strong>可以和故事中的方法重複</strong></u>。）",
+          "task_fields": [
+            { "label": "第一個銷售方法",   "required": true },
+            { "label": "第二個銷售方法",   "required": true },
+            { "label": "第三個銷售方法",   "required": true },
+            { "label": "第四個銷售方法",   "required": true },
+            { "label": "第五個銷售方法",   "required": true },
+            { "label": "第六個銷售方法",   "required": true },
+            { "label": "第七個銷售方法",   "required": true },
+            { "label": "第八個銷售方法",   "required": true },
+            { "label": "第九個銷售方法",   "required": true },
+            { "label": "第十個銷售方法",   "required": true },
+            { "label": "第十一個銷售方法", "required": false, "note": "選填" },
+            { "label": "第十二個銷售方法", "required": false, "note": "選填" }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "survey_order": ["JA", "IP", "ER", "HP"],
+
+  "scales": [
+    {
+      "id": "HP",
+      "role": "y",
+      "name": "和諧式熱情量表",
+      "part_title": "第四部分",
+      "header_instruction": "請綜合以上三則故事情境中主角小華的感受，再根據以下內容之描述，進行後續題項之填答。",
+      "preamble": "現在，請試想您是小華，在這樣的「工作環境（第一部分）」中，對於「自己能力的懷疑（第二部分）」，以及面臨被要求「分享過往成功銷售的案例（第三部分）」。\n\n您覺得在這些<u><strong>種種情境下</strong></u>，「你對於<u><strong>這份銷售工作充滿著哪些感受？</strong></u>」",
+      "check_instruction": "根據上述內容之描述，填答以下 14 道題項。",
+      "scale": {
+        "points": 7,
+        "labels": ["非常不同意", "不同意", "有點不同意", "普通", "有點同意", "同意", "非常同意"]
+      },
+      "items": [
+        "這份工作讓我感受到各種不同的經驗。",
+        "如果在工作中發現了新的事物，可能使我更欣賞這份職務。",
+        "這份工作在我的職涯中留下了難忘的經驗。",
+        "在這份工作裡，能夠反映出我欣賞自己的某些地方。",
+        "這份工作能夠與我生活中的其他事物（家庭、愛情、副業....等）和諧共存。",
+        "對我來說這是份充滿熱情的工作，並且我能去掌控這股熱情。",
+        "我能夠全心全意地投入到這份工作中。",
+        "我覺得我不能沒有這份工作。",
+        "我對想要從事這份工作的衝動，可能讓我感到難以抑制。",
+        "我很難去想像，生活中沒有這份工作。",
+        "我在情感上相當依賴這份工作。",
+        "我很難去控制自己，對這份工作的需要和執著。",
+        "我對這份工作有種近乎強迫的投入感。",
+        "我的情緒好壞，取決於我是否能投入這份工作。"
+      ]
+    }
+  ],
+
+  "demographics": {
+    "part_title": "第五部分",
+    "instruction": "請填寫個人相關之基本資料，再次申明此資料僅供學術研討分析使用，請安心填答。",
+    "fields": [
+      {
+        "id": "age",
+        "label": "您的年齡",
+        "type": "number",
+        "unit": "歲",
+        "min": 18,
+        "max": 70,
+        "required": true
+      },
+      {
+        "id": "gender",
+        "label": "您的性別",
+        "type": "radio",
+        "options": ["生理男", "生理女"],
+        "required": true
+      },
+      {
+        "id": "education",
+        "label": "您的學歷",
+        "type": "radio",
+        "options": ["高中職(含)以下", "專科", "大學", "碩士", "博士"],
+        "required": true
+      },
+      {
+        "id": "work_years",
+        "label": "您的工作總年資",
+        "type": "number",
+        "unit": "年",
+        "min": 0,
+        "max": 50,
+        "required": true
+      },
+      {
+        "id": "work_months",
+        "label": "",
+        "type": "number",
+        "unit": "月",
+        "min": 0,
+        "max": 11,
+        "required": true
+      },
+      {
+        "id": "marital",
+        "label": "您的婚姻狀況",
+        "type": "radio",
+        "options": ["未婚", "已婚"],
+        "required": true
+      },
+      {
+        "id": "department",
+        "label": "您目前所屬的部門",
+        "type": "radio",
+        "options": ["行政管理", "財務會計", "業務銷售", "研發技術", "生產製造", "資訊科技", "其他"],
+        "required": true
+      }
+    ]
+  }
+}
